@@ -2,8 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Assignment 3: Blocky World</title>
+    <title>Assignment 4</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="shortcut icon" href="">
   </head>
 
   <body onload="main()">
@@ -16,13 +17,13 @@
             </div>
         </div>
         <div class="column2">
-            <h2>Assignment 3B: Blocky World</h2>
+            <h2>Assignment 4: Lighting</h2>
             <p>
                 Dhriti Goomer
 
                 <p>
-                <b>Find the Funky Cow in the Maze!</b>
-                <p> Turn around to begin...
+                <b>There is a cow!</b>
+                <p> Just press Q until you see the cow standing there, sphere there too
                 <p>
                   <b>W:</b> Forward
                   <b>A:</b> Left
@@ -37,7 +38,30 @@
 
 
             <p>
+              <p>
+             Normals:
+             <button type="button" id="normalOn">ON</button>
+             <button type="button" id="normalOff">OFF</button>
+             <p>
+             Lights:
 
+             <p>
+               <button type="button" id="light_on">ON</button>
+               <button type="button" id="light_off">OFF</button>
+               Light X <input type="range" min="-250" max="250" value="0" class="slider" id="lightSlideX">
+               Light Y <input type="range" min="-250" max="250" value="100" class="slider" id="lightSlideY">
+               Light Z <input type="range" min="-250" max="250" value="-200" class="slider" id="lightSlideZ">
+             <p>
+
+               <p>
+                Color <input type="range" min="0" max="10" value="10" class="slider" id="colorSlide">
+
+                <br> Spotlight Switch <br>
+                                <label class="switch">
+                                    <input id="toggle-spotlight"  class="toggle" type = "checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                                <br>
             <p>
             <p id="numdot"></p>
             <b>Head</b>

@@ -1,57 +1,82 @@
 class Sphere {
     constructor() {
-      this.type='sphere';
-      this.color = [1.0, 1.0, 1.0, 1.0];
-      this.segments = 8
-      this.matrix = new Matrix4();
-
-      this.vertices = [];
+        this.type = 'sphere';
+        this.color = [1.0, 1.0, 1.0, 1.0];
+        this.matrix = new Matrix4();
+        this.normalMatrix = new Matrix4();
+        this.textureNum = -2;
+        this.verts = [
+            // Front
+            0, 0, 0, 1, 1, 0, 1, 0, 0,
+            0, 0, 0, 0, 1, 0, 1, 1, 0,
+            // Top
+            0, 1, 0, 0, 1, 1, 1, 1, 1,
+            0, 1, 0, 1, 1, 1, 1, 1, 0,
+            // Bottom
+            0, 1, 0, 0, 1, 1, 1, 1, 1,
+            0, 1, 0, 1, 1, 1, 1, 1, 0,
+            // Left
+            1, 0, 0, 1, 1, 1, 1, 1, 0,
+            1, 0, 0, 1, 0, 1, 1, 1, 1,
+            // Right
+            0, 0, 0, 0, 1, 1, 0, 1, 0,
+            0, 0, 0, 0, 0, 1, 0, 1, 1,
+            // Back
+            0, 0, 1, 1, 1, 1, 0, 1, 1,
+            0, 0, 1, 1, 0, 1, 1, 1, 1
+        ];
+        this.uvVerts = [
+            0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1,
+            0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1,
+            0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1,
+            0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1,
+            0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1,
+            0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1
+        ];
     }
 
     render() {
-      var rgba = this.color;
+        var rgba = this.color;
 
-      // Pass the color of a point to u_FragColor variable
-      gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
+        gl.uniform1i(u_whichTexture, this.textureNum);
 
-      // Pass the Matrix to u_ModelMatrix attribute
-      gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
+        gl.uniform4f(u_FragColor, rgba[0], rgba[1], rgba[2], rgba[3]);
+        gl.uniformMatrix4fv(u_ModelMatrix, false, this.matrix.elements);
+        // gl.uniformMatrix4fv(u_NormalMatrix, false, this.normalMatrix.elements);
 
-      if (this.vertices.length > 0) {
-        for (var i = 0; i < this.vertices.length; i++) {
-          drawTriangle3D(this.vertices[i]);
+        var d = Math.PI / 10;   //delta1
+        var dd = Math.PI / 10;  //delta2
+
+        for (var t = 0; t < Math.PI; t += d) {
+            for (var r = 0; r < (2 * Math.PI); r = r + d) {
+                var p1 = [Math.sin(t) * Math.cos(r), Math.sin(t) * Math.sin(r), Math.cos(t)];
+                var p2 = [Math.sin(t + dd) * Math.cos(r), Math.sin(t + dd) * Math.sin(r), Math.cos(t + dd)];
+                var p3 = [Math.sin(t) * Math.cos(r + dd), Math.sin(t) * Math.sin(r + dd), Math.cos(t)];
+                var p4 = [Math.sin(t + dd) * Math.cos(r + dd), Math.sin(t + dd) * Math.sin(r + dd), Math.cos(t + dd)];
+
+                var uv1 = [t / Math.PI, r / (2 * Math.PI)];
+                var uv2 = [(t + dd) / Math.PI, r / (2 * Math.PI)];
+                var uv3 = [(t) / Math.PI, (r + dd) / (2 * Math.PI)];
+                var uv4 = [(t + dd) / Math.PI, (r + dd) / (2 * Math.PI)];
+
+                var v = [];
+                var uv = [];
+                v = v.concat(p1); uv = uv.concat(uv1);
+                v = v.concat(p2); uv = uv.concat(uv2);
+                v = v.concat(p4); uv = uv.concat(uv4);
+
+                gl.uniform4f(u_FragColor, 1, 1, 1, 1);
+                drawTriangle3DUVNormal(v, uv, v);
+
+                v = []; uv = [];
+                v = v.concat(p1); uv = uv.concat(uv1);
+                v = v.concat(p4); uv = uv.concat(uv4);
+                v = v.concat(p3); uv = uv.concat(uv3);
+
+                gl.uniform4f(u_FragColor, 1, 0, 0, 1);
+                drawTriangle3DUVNormal(v, uv, v);
+
+            }
         }
-        return
-      }
-
-      let angleStep = 360/this.segments;
-      for (var angle = 0; angle < 360; angle = angle+angleStep) {
-        let angle1 = angle;
-        let angle2 = angle+angleStep;
-        for (var phi = 0; phi < 180; phi = phi+angleStep) {
-            let phi1 = phi;
-            let phi2 = phi+angleStep;
-
-            let x1 = 1 * Math.sin(angle1*Math.PI/180) * Math.cos(phi1*Math.PI/180);
-            let y1 = 1 * Math.sin(angle1*Math.PI/180) * Math.sin(phi1*Math.PI/180);
-            let z1 = 1 * Math.cos(angle1*Math.PI/180)
-
-            let x2 = 1 * Math.sin(angle2*Math.PI/180) * Math.cos(phi1*Math.PI/180);
-            let y2 = 1 * Math.sin(angle2*Math.PI/180) * Math.sin(phi1*Math.PI/180);
-            let z2 = 1 * Math.cos(angle2*Math.PI/180)
-
-            let x3 = 1 * Math.sin(angle1*Math.PI/180) * Math.cos(phi2*Math.PI/180);
-            let y3 = 1 * Math.sin(angle1*Math.PI/180) * Math.sin(phi2*Math.PI/180);
-            let z3 = 1 * Math.cos(angle1*Math.PI/180)
-
-            let x4 = 1 * Math.sin(angle2*Math.PI/180) * Math.cos(phi2*Math.PI/180);
-            let y4 = 1 * Math.sin(angle2*Math.PI/180) * Math.sin(phi2*Math.PI/180);
-            let z4 = 1 * Math.cos(angle2*Math.PI/180)
-            drawTriangle3D([x1,y1,z1, x2,y2,z2, x3,y3,z3]);
-            drawTriangle3D([x4,y4,z4, x2,y2,z2, x3,y3,z3]);
-            this.vertices.push([x1,y1,z1, x2,y2,z2, x3,y3,z3]);
-            this.vertices.push([x4,y4,z4, x2,y2,z2, x3,y3,z3]);
-        }
-      }
     }
-  }
+}
