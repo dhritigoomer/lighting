@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Assignment 3: Blocky World</title>
+    <link rel="stylesheet" href="styles/styles.css">
+  </head>
+
+  <body onload="main()">
+    <div class="container">
+        <div class="column1">
+            <div class="canvas">
+            <canvas id="webgl" width="400" height="400">
+                Please use a browser that supports "canvas"
+            </canvas>
+            </div>
+        </div>
+        <div class="column2">
+            <h2>Assignment 3B: Blocky World</h2>
+            <p>
+                Dhriti Goomer
+
+                <p>
+                <b>Find the Funky Cow in the Maze!</b>
+                <p> Turn around to begin...
+                <p>
+                  <b>W:</b> Forward
+                  <b>A:</b> Left
+                  <b>S:</b> Back
+                  <b>D:</b> Right <p>
+                  <b>Q:</b> Look Left
+                  <b>E:</b> Look Right
+                  <b>R:</b> Look Up
+                  <b>F:</b> Look Down<p>
+                  <b>Space:</b> Up
+                  <b>Shift:</b> Down
+
+
+            <p>
+
+            <p>
+            <p id="numdot"></p>
+            <b>Head</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="HeadXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="HeadYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="HeadZSlide">
+            <br>
+
+            <b>Front Left Leg</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="FrontLeftLegXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="FrontLeftLegYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="FrontLeftLegZSlide">
+            <br>
+
+            <b>Bottom Front Left Leg</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="BottomFrontLeftLegXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="BottomFrontLeftLegYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="BottomFrontLeftLegZSlide">
+            <br>
+
+            <b>Front Right Leg</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="FrontRightLegXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="FrontRightLegYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="FrontRightLegZSlide">
+            <br>
+
+            <b>Bottom Front Right Leg</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="BottomFrontRightLegXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="BottomFrontRightLegYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="BottomFrontRightLegZSlide">
+            <br>
+
+            <b>Back Left Leg</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="BackLeftLegXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="BackLeftLegYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="BackLeftLegZSlide">
+            <br>
+
+            <b>Bottom Back Left Leg</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="BottomBackLeftLegXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="BottomBackLeftLegYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="BottomBackLeftLegZSlide">
+            <br>
+
+            <b>Back Right Leg</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="BackRightLegXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="BackRightLegYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="BackRightLegZSlide">
+            <br>
+
+            <b>Bottom Back Right Leg</b>
+            <br>
+            X <input type="range" min="-45" max="45" value="0" class="slider" id="BottomBackRightLegXSlide">
+            Y <input type="range" min="-45" max="45" value="0" class="slider" id="BottomBackRightLegYSlide">
+            Z <input type="range" min="-45" max="45" value="0" class="slider" id="BottomBackRightLegZSlide">
+
+            <p>
+            📸 Camera Angle <input type="range" min="25" max="385" value="25" class="slider" id="angleSlide">
+
+        </div>
+    </div>
+
+    <script src="./lib/webgl-utils.js"></script>
+    <script src="./lib/webgl-debug.js"></script>
+    <script src="./lib/cuon-utils.js"></script>
+    <script src='./lib/cuon-matrix-cse160.js'></script>
+    <script src="./src/Circle.js"></script>
+    <script src="./src/Cube.js"></script>
+    <script src="./src/Sphere.js"></script>
+    <script src="./src/Point.js"></script>
+    <script src="./src/Triangle.js"></script>
+    <script src="./src/Camera.js"></script>
+    <script src="./src/newWorld.js"></script>
+    <script src="./src/drawAnimal.js"></script>
+
+  </body>
+</html>
